@@ -10,21 +10,39 @@ class UsersController < ApplicationController
   end
 
   def create
-    byebug
-    user = User.new(params[:user].permit(:name, :email))
-    user.save!
-    render json: user
+    #byebug
+    user = User.new(user_params)
+    if user.save
+      render json: user
+    else
+      render(
+        json: user.errors.full_messages, status: :unprocessable_entity
+      )
+    end
   end
 
   def show
-    render text: "Here in show!"
+    @user = User.find(params[:id])
+    render json: @user
   end
 
   def update
-    render text: "Here in update!"
+    @user = User.find(params[:id])
+    User.update(@user.id, user_params)
+    render json: @user
   end
 
   def edit
     render text: "Here in edit"
   end
+
+  def destroy
+    @user = User.find(params[:id])
+    User.destroy(@user.id)
+    render json: @user
+  end
+
+  def user_params
+  params.require(:user).permit(:name, :email)
+end
 end

@@ -6,12 +6,12 @@ def create_user
     scheme: 'http',
     host: 'localhost',
     port: 3000,
-    path: '/users.json'
+    path: '/users'
   ).to_s
 
   puts RestClient.post(
     url,
-    { user: { name: "Breakfast", email: "cat@gizmo.gizmo" } }
+    { user: { name: "Jenny", email: "jennyj@appacademy.io" } }
   )
 end
 
