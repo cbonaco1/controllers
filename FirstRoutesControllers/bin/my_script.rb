@@ -1,11 +1,18 @@
 require 'addressable/uri'
 require 'rest-client'
 
-url = Addressable::URI.new(
-  scheme: 'http',
-  host: 'localhost',
-  port: 3000,
-  path: '/users/1/edit'
-).to_s
+def create_user
+  url = Addressable::URI.new(
+    scheme: 'http',
+    host: 'localhost',
+    port: 3000,
+    path: '/users.json'
+  ).to_s
 
-puts RestClient.get(url) #, {:params => {:id => 50, 'foo' => 'bar'}})
+  puts RestClient.post(
+    url,
+    { user: { name: "Breakfast", email: "cat@gizmo.gizmo" } }
+  )
+end
+
+create_user

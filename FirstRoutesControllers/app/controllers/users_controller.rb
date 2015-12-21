@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   def index
-    render text: "I'm in the index action!"
-    #byebug
+    @users = User.all
+    render json: @users
+    # byebug
   end
 
   def new
@@ -9,8 +10,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    render text: "Here in create!"
-    #byebug
+    byebug
+    user = User.new(params[:user].permit(:name, :email))
+    user.save!
+    render json: user
   end
 
   def show
