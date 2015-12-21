@@ -23,12 +23,12 @@ class ContactsController < ApplicationController
   def update
     @contact = Contact.find(params[:id])
     Contact.update(@contact.id, contact_params)
-
-    if contact.save
-      render json: contact
+    byebug
+    if @contact.save
+      render json: @contact
     else
       render(
-        json: contact.errors.full_messages, status: :unprocessable_entity
+        json: @contact.errors.full_messages, status: :unprocessable_entity
       )
     end
   end

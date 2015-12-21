@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     User.update(@user.id, user_params)
 
-    if user.save
+    if @user.save
       render json: @user
     else
       render(
