@@ -5,9 +5,9 @@ class UsersController < ApplicationController
     # byebug
   end
 
-  def new
-    render text: "Here in new!"
-  end
+  # def new
+  #   render text: "Here in new!"
+  # end
 
   def create
     #byebug
@@ -29,12 +29,20 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     User.update(@user.id, user_params)
-    render json: @user
+
+    if user.save
+      render json: @user
+    else
+      render(
+        json: @user.errors.full_messages, status: :unprocessable_entity
+      )
+    end
+
   end
 
-  def edit
-    render text: "Here in edit"
-  end
+  # def edit
+  #   render text: "Here in edit"
+  # end
 
   def destroy
     @user = User.find(params[:id])
@@ -42,7 +50,8 @@ class UsersController < ApplicationController
     render json: @user
   end
 
+  private
   def user_params
-  params.require(:user).permit(:name, :email)
-end
+    params.require(:user).permit(:username)
+  end
 end
