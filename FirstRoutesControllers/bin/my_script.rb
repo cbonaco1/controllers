@@ -11,7 +11,7 @@ def create_user
 
   puts RestClient.post(
     url,
-    { user: { name: "Jenny", email: "jennyj@appacademy.io" } }
+    { user: { username: "Jimmy" } }
   )
 end
 
@@ -50,7 +50,21 @@ def create_contact
 
   puts RestClient.post(
     url,
-    { contact: { name: "Jenny", email: "jennyj@gmail.com", user_id: 2 } }
+    { contact: { name: "AnotherJennyContact", email: "j@gmail.com", user_id: 2 } }
+  )
+end
+
+def update_user
+  url = Addressable::URI.new(
+    scheme: 'http',
+    host: 'localhost',
+    port: 3000,
+    path: '/users/1'
+  ).to_s
+
+  puts RestClient.put(
+    url,
+    { user: { username: "Sennacy" } }
   )
 end
 
@@ -59,15 +73,28 @@ def update_contact
     scheme: 'http',
     host: 'localhost',
     port: 3000,
-    path: '/contacts/2'
+    path: '/contacts/1'
   ).to_s
 
-  puts RestClient.put(
+  puts RestClient.patch(
     url,
-    { contact: { name: "Sennacy", email: "jennyj@gmail.com", user_id: 2 } }
+    { contact: { name: "JennyFromTheBlock" } }
+  )
+end
+
+def delete_contact
+  url = Addressable::URI.new(
+    scheme: 'http',
+    host: 'localhost',
+    port: 3000,
+    path: '/contacts/1'
+  ).to_s
+
+  puts RestClient.delete(
+    url
   )
 end
 # show_all_users
 # show_all_contacts
 # create_contact
-update_contact
+delete_contact
